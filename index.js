@@ -25,7 +25,6 @@ server.get('/api/users', ( req, res ) => {
     });
   });
 
-
 // Get users by id
   server.get('/api/users/:id', ( req, res ) => {
     Users.findById(req.params.id)
@@ -69,6 +68,20 @@ server.post('/api/users', (req, res) => {
     });
     }
 });
+
+// Delete user
+server.delete('/api/users/:id', (req, res) => {
+    Users.remove(req.params.id)
+    .then(remove => {
+        res
+        .status(200)
+        .json(remove)
+    }).catch(() => {
+        res
+        .status(400)
+        .json({ errorMessage: 'The user with the specified ID does not exist.' })
+    });
+})
 
 const port = 8080
 
